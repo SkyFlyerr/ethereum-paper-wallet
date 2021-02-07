@@ -1,0 +1,6 @@
+fpdf
+qrcode
+numpy
+ecdsa
+sha3
+random
