@@ -16,7 +16,8 @@ from ecdsa import SigningKey, SECP256k1
 import sha3
 import random
 
-def checksum_encode(addr_str): # Takes a hex (string) address as input
+
+def checksum_encode(addr_str):  # Takes a hex (string) address as input
     keccak = sha3.keccak_256()
     out = ''
     addr = addr_str.lower().replace('0x', '')
@@ -28,6 +29,7 @@ def checksum_encode(addr_str): # Takes a hex (string) address as input
         else:
             out += c
     return '0x' + out
+
 
 qr = qrcode.QRCode(
     version=1,
@@ -66,38 +68,40 @@ qr.add_data(privstr)
 qr.make(fit=True)
 img = qr.make_image(fill_color="black", back_color="white")
 A = numpy.asarray(img)
-box = 1. # QR code dot size
+box = 1.  # QR code dot size
 x = 0
 y = 0
 pdf.set_line_width(0.1)
 for row in A:
     for val in row:
-        if val==0: pdf.rect(x*box+85, y*box+40, box+0.05, box+0.05, 'F')
-        x+=1
-        # print ('{:2}'.format(val), end='')
-    y+=1
-    x=0
+        if val == 0:
+            pdf.rect(x*box+85, y*box+40, box+0.05, box+0.05, 'F')
+        x += 1
+    y += 1
+    x = 0
 
-# draw random squares
+# Draw random squares
 pdf.set_fill_color(0)
 for x in range(2, 208):
     for y in range(101, 196):
         r = random.getrandbits(1)
-        if r == 1: pdf.rect(x, y, 1.05, 1.05, 'F')
+        if r == 1:
+            pdf.rect(x, y, 1.05, 1.05, 'F')
 
 for x in range(2, 208):
     for y in range(200, 295):
         r = random.getrandbits(1)
-        if r == 1: pdf.rect(x, y, 1.05, 1.05, 'F')
+        if r == 1:
+            pdf.rect(x, y, 1.05, 1.05, 'F')
 
-# draw folding lines
+# Draw folding lines
 pdf.set_draw_color(100)
 pdf.dashed_line(0, 99, 210, 99)
 pdf.dashed_line(0, 198, 210, 198)
 
-# print wallet address and etherscan url with QR codes on another page
+# Print wallet address and etherscan url with QR codes on another page
 pdf.add_page()
-# draw folding lines
+# Draw folding lines
 pdf.set_draw_color(200)
 pdf.dashed_line(0, 99, 210, 99)
 pdf.dashed_line(0, 198, 210, 198)
@@ -118,17 +122,17 @@ qr.add_data(addrstr)
 qr.make(fit=True)
 img = qr.make_image(fill_color="black", back_color="white")
 A = numpy.asarray(img)
-box = 1.15 # QR code dot size
+box = 1.15  # QR code dot size
 x = 0
 y = 0
 pdf.set_line_width(0.1)
 for row in A:
     for val in row:
-        if val==0: pdf.rect(x*box+33, y*box+135, box+0.05, box+0.05, 'F')
-        x+=1
-        # print ('{:2}'.format(val), end='')
-    y+=1
-    x=0
+        if val == 0:
+            pdf.rect(x*box+33, y*box+135, box+0.05, box+0.05, 'F')
+        x += 1
+    y += 1
+    x = 0
 
 pdf.text(133, 135, 'Balance and transactions:')
 pdf.set_fill_color(0)
@@ -142,23 +146,23 @@ qr.add_data('https://etherscan.io/address/'+addrstr)
 qr.make(fit=True)
 img = qr.make_image(fill_color="black", back_color="white")
 A = numpy.asarray(img)
-box = 1. # QR code dot size
+box = 1.  # QR code dot size
 x = 0
 y = 0
 pdf.set_line_width(0.1)
 for row in A:
     for val in row:
-        if val==0: pdf.rect(x*box+133, y*box+135, box+0.05, box+0.05, 'F')
-        x+=1
-        # print ('{:2}'.format(val), end='')
-    y+=1
-    x=0
+        if val == 0:
+            pdf.rect(x*box+133, y*box+135, box+0.05, box+0.05, 'F')
+        x += 1
+    y += 1
+    x = 0
 
-# closing PDF file
+# Closing PDF file
 pdfname = addrstr[0:6] + '-' + addrstr[-4:] + '_private.pdf'
 pdf.output(pdfname, 'F')
 
-# generating cover print
+# Generating cover print
 pdf = fpdf.FPDF('P', 'mm', (220, 110))
 pdf.add_page()
 pdf.set_font('Arial', '', 10)
@@ -178,17 +182,17 @@ qr.add_data(addrstr)
 qr.make(fit=True)
 img = qr.make_image(fill_color="black", back_color="white")
 A = numpy.asarray(img)
-box = 1.15 # QR code dot size
+box = 1.15  # QR code dot size
 x = 0
 y = 0
 pdf.set_line_width(0.1)
 for row in A:
     for val in row:
-        if val==0: pdf.rect(x*box+33, y*box+35, box+0.05, box+0.05, 'F')
-        x+=1
-        # print ('{:2}'.format(val), end='')
-    y+=1
-    x=0
+        if val == 0:
+            pdf.rect(x*box+33, y*box+35, box+0.05, box+0.05, 'F')
+        x += 1
+    y += 1
+    x = 0
 
 pdf.text(133, 35, 'Balance and transactions:')
 pdf.set_fill_color(0)
@@ -202,17 +206,17 @@ qr.add_data('https://etherscan.io/address/'+addrstr)
 qr.make(fit=True)
 img = qr.make_image(fill_color="black", back_color="white")
 A = numpy.asarray(img)
-box = 1. # QR code dot size
+box = 1.  # QR code dot size
 x = 0
 y = 0
 pdf.set_line_width(0.1)
 for row in A:
     for val in row:
-        if val==0: pdf.rect(x*box+133, y*box+35, box+0.05, box+0.05, 'F')
-        x+=1
-        # print ('{:2}'.format(val), end='')
-    y+=1
-    x=0
+        if val == 0:
+            pdf.rect(x*box+133, y*box+35, box+0.05, box+0.05, 'F')
+        x += 1
+    y += 1
+    x = 0
 
 # closing PDF file
 pdfname = addrstr[0:6] + '-' + addrstr[-4:] + '_cover.pdf'
